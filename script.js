@@ -7,7 +7,7 @@ function openNav() {
   }
 
   function updateCountdown() {
-    const targetDate = new Date('2023-12-31 23:59:59').getTime(); // Set your target date and time
+    const targetDate = new Date('2024-12-31 23:59:59').getTime(); // Set your target date and time
     const now = new Date().getTime();
     const timeRemaining = targetDate - now;
   
@@ -27,60 +27,53 @@ function openNav() {
   // Update the countdown every second
   setInterval(updateCountdown, 1000);
   updateCountdown(); // Initial call to set the countdown
-  
-  let currentSlide = 0;
-  const slides = document.querySelectorAll('.slide');
-  const dots = document.querySelectorAll('.dot');
-  
-  function showSlide(index) {
-      slides.forEach(slide => slide.classList.remove('active', 'prev', 'next'));
-      slides[index].classList.add('active');
-      slides[(index + 1) % slides.length].classList.add('next');
-      slides[(index - 1 + slides.length) % slides.length].classList.add('prev');
-      
-       // Highlight the active dot
-      //dots.forEach(dot => dot.classList.remove('active-dot'));
-      //dots[index].classList.add('active-dot');
-  }
-  
-  function nextSlide() {
-      currentSlide = (currentSlide + 1) % slides.length;
-      showSlide(currentSlide);
-  }
-  
-  function prevSlide() {
-      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-      showSlide(currentSlide);
-  }
-  
-  function goToSlide(index) {
-      currentSlide = index;
-      showSlide(currentSlide);
-  }
-  
-  showSlide(currentSlide);
-  
-  // Auto advance to the next slide every 3 seconds
-  setInterval(nextSlide, 9000);
 
-
-  // Function to scroll to the top of the page smoothly
 function scrollToTop() {
-  // Smooth scrolling to the top of the page
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
+    // Smooth scrolling to the top of the page
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+  
+  // Show the "Back to Top" button when the user scrolls down
+  window.addEventListener('scroll', () => {
+    const backToTopButton = document.querySelector('.back-to-top');
+    
+    if (document.documentElement.scrollTop > 100 || document.body.scrollTop > 100) {
+      backToTopButton.style.display = 'block';
+    } else {
+      backToTopButton.style.display = 'none';
+    }
   });
+function toggleHeart(element, heartCountId) {
+    var heartIcon = element.querySelector('.favi');
+    var heartCount = document.getElementById(heartCountId);
+  
+    heartIcon.classList.toggle('red'); // Toggle the 'red' class on the heart icon
+  
+    if (heartIcon.classList.contains('red')) { 
+        heartCount.textContent = parseInt(heartCount.textContent) + 1;
+    } else {
+        heartCount.textContent = parseInt(heartCount.textContent) - 1;
+    }
 }
 
-// Show the "Back to Top" button when the user scrolls down
-window.addEventListener('scroll', () => {
-  const backToTopButton = document.querySelector('.back-to-top');
-  
-  if (document.documentElement.scrollTop > 100 || document.body.scrollTop > 100) {
-    backToTopButton.style.display = 'block';
-  } else {
-    backToTopButton.style.display = 'none';
-  }
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        console.log(entry)
+        if(entry.isIntersecting) {
+            entry.target.classList.add('show');
+        }
+    });
 });
 
+const topElements = document.querySelectorAll('.top');
+const bottomElements = document.querySelectorAll('.bottom');
+const leftElements = document.querySelectorAll('.left');
+const rightElements = document.querySelectorAll('.right');
+
+topElements.forEach((el) => observer.observe(el));
+bottomElements.forEach((el) => observer.observe(el));
+leftElements.forEach((el) => observer.observe(el));
+rightElements.forEach((el) => observer.observe(el));
