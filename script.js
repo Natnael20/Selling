@@ -7,7 +7,7 @@ function openNav() {
   }
 
   function updateCountdown() {
-    const targetDate = new Date('2024-12-31 23:59:59').getTime(); // Set your target date and time
+    const targetDate = new Date('2025-12-31 23:59:59').getTime(); // Set your target date and time
     const now = new Date().getTime();
     const timeRemaining = targetDate - now;
   
